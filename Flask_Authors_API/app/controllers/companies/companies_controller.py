@@ -11,6 +11,7 @@ from flask_jwt_extended import create_access_token, jwt_required,get_jwt_identit
 #company blueprint
 companies = Blueprint('companies', __name__, url_prefix='/api/v1/companies')
 
+<<<<<<< HEAD
 #Getting all the users from the database
 @companies.get('/')
 @jwt_required()
@@ -27,6 +28,17 @@ def getAllCompanies():
     origin= data.get('origin')
     description = data.get('description')
     user_id = get_jwt_identity('user_id')
+=======
+#creating companies
+
+@companies.route('/create', methods=['POST'])
+@jwt_required(get_jwt_identity)
+def createCompany():
+    data = request.json
+    origin= data.get('origin')
+    description = data.get('description')
+    user_id = data.get('user_id')
+>>>>>>> 943a97643a917e19a28665b1eebcb7ad3a3d48d5
     name = data.get('name')
     
 
@@ -41,14 +53,21 @@ def getAllCompanies():
         return jsonify({"error":"Company name already exists."}),HTTP_409_CONFLICT
     
     
+<<<<<<< HEAD
     try: 
+=======
+    try:
+>>>>>>> 943a97643a917e19a28665b1eebcb7ad3a3d48d5
       
 
        #creating a new company
        new_company = Company(name=name,origin = origin, description=description, user_id=user_id)
        db.session.add(new_company)
        db.session.commit()
+<<<<<<< HEAD
        
+=======
+>>>>>>> 943a97643a917e19a28665b1eebcb7ad3a3d48d5
 
 
 
@@ -59,9 +78,14 @@ def getAllCompanies():
                "name":new_company.name,
                "origin":new_company.origin,
                "description": new_company.description
+<<<<<<< HEAD
 
            }
            
+=======
+              
+           }
+>>>>>>> 943a97643a917e19a28665b1eebcb7ad3a3d48d5
        }),HTTP_201_CREATED
 
     except Exception as e:   
